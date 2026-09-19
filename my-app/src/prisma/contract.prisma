@@ -1,0 +1,27 @@
+// use prisma-8
+
+
+model Event {
+  id            Int           @id @default(autoincrement())
+  title         String   
+  description   String? 
+  Location      String?
+  Date          DateTime
+  createdAt     DateTime      @default(now())
+
+  bookings      Booking[]
+
+  @@map("events")
+}
+
+model Booking {
+  id            Int           @id @default(autoincrement())
+  user          String
+  email         String?
+  createdAt     DateTime @default(now())  
+
+  event         Event   @relation( fields: [eventId] , references: [id] )
+  eventId       Int
+
+  @@map("bookings")
+}
